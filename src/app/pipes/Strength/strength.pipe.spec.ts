@@ -1,23 +1,27 @@
 import { StrengthPipe } from './strength.pipe';
 
 describe('StrengthPipe', () => {
-  it('create an instance', () => {
-    const pipe = new StrengthPipe();
-    expect(pipe).toBeTruthy();
+  let sPipe: StrengthPipe;
+  beforeEach(() => {
+    sPipe = new StrengthPipe();
   });
 
-  it('should display weak if 5 value is passed', () => {
-    const pipe = new StrengthPipe();
-    expect(pipe.transform(5)).toEqual('5 (weak)');
+  it('should create pipe', () => {
+    expect(sPipe).toBeInstanceOf(StrengthPipe);
   });
 
-  it('should display strong if 10 value is passed', () => {
-    const pipe = new StrengthPipe();
-    expect(pipe.transform(10)).toEqual('10 (strong)');
+  it('should transform to weak when less than 10', () => {
+    const value = sPipe.transform(5);
+    expect(value).toBe('5 (weak)');
   });
 
-  it('should display strongest if 20 value is passed', () => {
-    const pipe = new StrengthPipe();
-    expect(pipe.transform(20)).toEqual('20 (strongest)');
+  it('should transform to strong when more than 10', () => {
+    const value = sPipe.transform(12);
+    expect(value).toBe('12 (strong)');
+  });
+
+  it('should transform to strongest when more than 20', () => {
+    const value = sPipe.transform(23);
+    expect(value).toBe('23 (strongest)');
   });
 });
